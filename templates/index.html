@@ -17,18 +17,21 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
             padding: 20px;
+            gap: 20px;
         }
 
         .container {
             display: flex;
             gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
             align-items: flex-start;
-            max-width: 1400px;
+            max-width: 1600px;
+            width: 100%;
         }
 
         .camera-section {
@@ -38,7 +41,8 @@
             background: rgba(0, 0, 0, 0.3);
             padding: 20px;
             border-radius: 15px;
-            min-width: 320px;
+            min-width: 420px;
+            flex-shrink: 0;
         }
 
         .camera-info {
@@ -90,7 +94,7 @@
 
         .game-section {
             flex: 1;
-            min-width: 320px;
+            min-width: 520px;
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -172,9 +176,9 @@
             color: white;
             padding: 20px;
             border-radius: 10px;
-            margin-top: 20px;
             border-left: 4px solid #FF9800;
-            max-width: 1400px;
+            max-width: 1600px;
+            width: 100%;
         }
 
         .instructions h3 {
@@ -334,8 +338,11 @@
         <div class="camera-section">
             <h2 style="color: white; text-align: center;">Webcam Feed</h2>
             <div class="camera-info">
-                <video id="webcam" autoplay playsinline></video>
+                <video id="webcam" autoplay playsinline muted></video>
                 <canvas id="canvas"></canvas>
+            </div>
+            <div style="color: white; text-align: center; font-size: 12px; margin-top: 5px;">
+                <p>📹 Gesture Detection</p>
             </div>
             <img id="processedFrame" src="" alt="Processed Frame" style="display: none;">
             <div class="gesture-info">
