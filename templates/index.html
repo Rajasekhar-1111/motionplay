@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subway Surfers - Hand Gesture Control</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 1400px;
+        }
+
+        .camera-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 320px;
+        }
+
+        .camera-info {
+            color: white;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        video {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            background: black;
+            display: block;
+        }
+
+        canvas {
+            display: none;
+        }
+
+        #processedFrame {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            background: black;
+            display: block;
+        }
+
+        .gesture-info {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .gesture-info .label {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .gesture-info .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .game-section {
+            flex: 1;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #gameCanvas {
+            border-radius: 10px;
+            background: linear-gradient(to bottom, #87CEEB, #E0F6FF);
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .btn-start:hover {
+            background: linear-gradient(135deg, #45a049, #3d8b40);
+        }
+
+        .btn-stop {
+            background: linear-gradient(135deg, #f44336, #da190b);
+            color: white;
+        }
+
+        .btn-stop:hover {
+            background: linear-gradient(135deg, #da190b, #ba0a0a);
+        }
+
+        .status {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #2196F3;
+            font-size: 14px;
+        }
+
+        .status.connected {
+            border-left-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.2);
+        }
+
+        .status.disconnected {
+            border-left-color: #f44336;
+            background: rgba(244, 67, 54, 0.2);
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #FF9800;
+            max-width: 1400px;
+        }
+
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: #FFB74D;
+        }
+
+        .instructions ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .instructions li {
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            border-left: 3px solid #FF9800;
+            padding-left: 12px;
+        }
+
+        .gesture-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .gesture-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .gesture-item .gesture-name {
+            font-weight: bold;
+            color: #FFB74D;
+            margin-bottom: 5px;
+        }
+
+        .gesture-item .command {
+            font-size: 12px;
+            color: #B0BEC5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .instructions ul {
+                grid-template-columns: 1fr;
+            }
+
+            video, #processedFrame, #gameCanvas {
+                max-width: 100%;
+            }
+        }
+
+        .score-display {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #FFD700;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .score-value {
+            color: #FFD700;
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Camera Section -->
+        <div class="camera-section">
+            <h2 style="color: white; text-align: center;">Webcam Feed</h2>
+            <div class="camera-info">
+                <video id="webcam" autoplay playsinline></video>
+                <canvas id="canvas"></canvas>
+            </div>
+            <img id="processedFrame" src="" alt="Processed Frame" style="display: none;">
+            <div class="gesture-info">
+                <div class="label">DETECTED GESTURE</div>
+                <div class="value" id="gestureDisplay">NEUTRAL</div>
+            </div>
+        </div>
+
+        <!-- Game Section -->
+        <div class="game-section" style="flex-grow: 1;">
+            <h2 style="color: white; text-align: center;">SUBWAY SURFERS</h2>
+            <canvas id="gameCanvas"></canvas>
+
+            <div class="score-display">
+                Score: <span class="score-value" id="scoreDisplay">0</span>
+            </div>
+
+            <div class="status disconnected" id="connectionStatus">
+                ⚪ Status: Disconnected
+            </div>
+
+            <div class="game-controls">
+                <button class="btn-start" onclick="startGame()">START GAME</button>
+                <button class="btn-stop" onclick="stopGame()">STOP GAME</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="instructions">
+        <h3>🎮 Hand Gesture Controls</h3>
+        <div class="gesture-demo">
+            <div class="gesture-item">
+                <div class="gesture-name">👈 LEFT POINT</div>
+                <div class="command">← LEFT</div>
+            </div>
+            <div class="gesture-item">
+                <div class="gesture-name">👉 RIGHT POINT</div>
+                <div class="command">→ RIGHT</div>
+            </div>
+            <div class="gesture-item">
+                <div class="gesture-name">✋ OPEN PALM</div>
+                <div class="command">↑ JUMP</div>
+            </div>
+            <div class="gesture-item">
+                <div class="gesture-name">✊ CLOSED FIST</div>
+                <div class="command">↓ SLIDE</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // WebSocket Connection
+        const socket = io();
+
+        // Game Variables
+        let gameRunning = false;
+        let currentGesture = 'NEUTRAL';
+        let score = 0;
+        let gameSpeed = 3;
+        let lastGestureTime = 0;
+        let gestureCooldown = 300; // ms
+
+        // Player object
+        const player = {
+            x: 0,
+            y: 0,
+            width: 40,
+            height: 60,
+            lane: 1, // 0: left, 1: middle, 2: right
+            jumping: false,
+            slidng: false,
+            velocityY: 0,
+            gravity: 0.6
+        };
+
+        // Obstacles array
+        let obstacles = [];
+
+        // Canvas setup
+        const gameCanvas = document.getElementById('gameCanvas');
+        const ctx = gameCanvas.getContext('2d');
+
+        // Initialize canvas dimensions
+        function resizeCanvas() {
+            const rect = gameCanvas.getBoundingClientRect();
+            gameCanvas.width = rect.width;
+            gameCanvas.height = rect.height;
+            player.x = gameCanvas.width / 2 - player.width / 2;
+            player.y = gameCanvas.height - player.height - 20;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Webcam setup
+        const video = document.getElementById('webcam');
+
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error('Error accessing webcam:', err);
+                alert('Please enable webcam access to play!');
+            });
+
+        // Socket events
+        socket.on('connect', () => {
+            console.log('Connected to server');
+            updateConnectionStatus(true);
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from server');
+            updateConnectionStatus(false);
+        });
+
+        socket.on('processed_frame', (data) => {
+            if (data.gesture) {
+                currentGesture = data.gesture;
+                document.getElementById('gestureDisplay').textContent = data.gesture;
+            }
+            if (data.frame) {
+                document.getElementById('processedFrame').src = data.frame;
+                document.getElementById('processedFrame').style.display = 'block';
+            }
+        });
+
+        function updateConnectionStatus(connected) {
+            const status = document.getElementById('connectionStatus');
+            if (connected) {
+                status.className = 'status connected';
+                status.innerHTML = '🟢 Status: Connected';
+            } else {
+                status.className = 'status disconnected';
+                status.innerHTML = '⚪ Status: Disconnected';
+            }
+        }
+
+        // Process video frames
+        function processWebcam() {
+            if (video.readyState === video.HAVE_ENOUGH_DATA && gameRunning) {
+                const canvas = document.getElementById('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0);
+                
+                const imageData = canvas.toDataURL('image/jpeg');
+                socket.emit('frame', { image: imageData });
+            }
+            requestAnimationFrame(processWebcam);
+        }
+
+        // Game functions
+        function startGame() {
+            gameRunning = true;
+            score = 0;
+            obstacles = [];
+            player.lane = 1;
+            player.jumping = false;
+            player.sliding = false;
+            player.velocityY = 0;
+            processWebcam();
+            gameLoop();
+        }
+
+        function stopGame() {
+            gameRunning = false;
+        }
+
+        function movePlayer(direction) {
+            const now = Date.now();
+            if (now - lastGestureTime < gestureCooldown) return;
+            lastGestureTime = now;
+
+            const laneWidth = gameCanvas.width / 3;
+            
+            switch(direction) {
+                case 'LEFT':
+                    if (player.lane > 0) player.lane--;
+                    break;
+                case 'RIGHT':
+                    if (player.lane < 2) player.lane++;
+                    break;
+                case 'UP':
+                    if (!player.jumping) {
+                        player.jumping = true;
+                        player.velocityY = -15;
+                    }
+                    break;
+                case 'DOWN':
+                    player.sliding = true;
+                    setTimeout(() => { player.sliding = false; }, 300);
+                    break;
+            }
+            player.x = player.lane * laneWidth + (laneWidth - player.width) / 2;
+        }
+
+        // Gesture to command mapping
+        const gestureCommandMap = {
+            'LEFT_POINT': 'LEFT',
+            'RIGHT_POINT': 'RIGHT',
+            'OPEN_PALM': 'UP',
+            'CLOSED_FIST': 'DOWN'
+        };
+
+        function gameLoop() {
+            if (!gameRunning) return;
+
+            // Clear canvas
+            ctx.fillStyle = 'rgba(135, 206, 235, 0.3)';
+            ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+
+            // Draw lanes
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.lineWidth = 2;
+            const laneWidth = gameCanvas.width / 3;
+            for (let i = 1; i < 3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * laneWidth, 0);
+                ctx.lineTo(i * laneWidth, gameCanvas.height);
+                ctx.stroke();
+            }
+
+            // Process gesture
+            const command = gestureCommandMap[currentGesture];
+            if (command) {
+                movePlayer(command);
+            }
+
+            // Update player physics
+            if (player.jumping) {
+                player.velocityY += player.gravity;
+                player.y += player.velocityY;
+
+                if (player.y >= gameCanvas.height - player.height - 20) {
+                    player.y = gameCanvas.height - player.height - 20;
+                    player.jumping = false;
+                    player.velocityY = 0;
+                }
+            }
+
+            // Draw player
+            ctx.fillStyle = player.sliding ? '#FF6B6B' : '#4285F4';
+            if (player.sliding) {
+                ctx.fillRect(player.x, player.y + 40, player.width, 20);
+            } else {
+                ctx.fillRect(player.x, player.y, player.width, player.height);
+            }
+
+            // Spawn obstacles
+            if (Math.random() < 0.02) {
+                const lane = Math.floor(Math.random() * 3);
+                obstacles.push({
+                    x: lane * laneWidth + (laneWidth - 30) / 2,
+                    y: -40,
+                    width: 30,
+                    height: 40
+                });
+            }
+
+            // Update obstacles
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                obstacles[i].y += gameSpeed;
+
+                // Draw obstacle
+                ctx.fillStyle = '#FF6B6B';
+                ctx.fillRect(obstacles[i].x, obstacles[i].y, obstacles[i].width, obstacles[i].height);
+
+                // Collision detection
+                if (checkCollision(player, obstacles[i])) {
+                    if (!player.sliding) {
+                        alert(`Game Over! Final Score: ${score}`);
+                        stopGame();
+                        return;
+                    } else {
+                        obstacles.splice(i, 1);
+                        score += 10;
+                        continue;
+                    }
+                }
+
+                // Remove off-screen obstacles
+                if (obstacles[i].y > gameCanvas.height) {
+                    obstacles.splice(i, 1);
+                    score += 5;
+                }
+            }
+
+            // Increase difficulty
+            gameSpeed += 0.001;
+
+            // Update score display
+            document.getElementById('scoreDisplay').textContent = score;
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        function checkCollision(player, obstacle) {
+            return player.x < obstacle.x + obstacle.width &&
+                   player.x + player.width > obstacle.x &&
+                   player.y < obstacle.y + obstacle.height &&
+                   player.y + (player.sliding ? 20 : player.height) > obstacle.y;
+        }
+
+        // Keyboard fallback
+        document.addEventListener('keydown', (e) => {
+            if (!gameRunning) return;
+            switch(e.key) {
+                case 'ArrowLeft': movePlayer('LEFT'); break;
+                case 'ArrowRight': movePlayer('RIGHT'); break;
+                case 'ArrowUp': movePlayer('UP'); break;
+                case 'ArrowDown': movePlayer('DOWN'); break;
+            }
+        });
+    </script>
+</body>
+</html>
