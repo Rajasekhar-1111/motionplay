@@ -1,10 +1,12 @@
-# 🎮 Subway Surfers - Hand Gesture Control Game
+🎮 **Subway Surfers - Hand Gesture Control Game**
 
-**Built by Rajasekhar-1111** | [GitHub](https://github.com/Rajasekhar-1111/motionplay) | [Python](https://www.python.org) | [FastAPI](https://fastapi.tiangolo.com) | [License](LICENSE)
+Built by Rajasekhar-1111
 
-A production-ready web-based Subway Surfers game where players control the character using **real-time hand gestures detected via webcam**. Play anywhere, anytime—just click a link and start gaming!
+![GitHub](https://img.shields.io/badge/GitHub-Rajasekhar--1111-181717?style=flat&logo=github) ![Python](https://img.shields.io/badge/Python-3.10+-3776ab?style=flat&logo=python) ![Flask](https://img.shields.io/badge/Flask-2.3.3-000000?style=flat&logo=flask) ![OpenCV](https://img.shields.io/badge/OpenCV-4.8.0-5C3EE8?style=flat&logo=opencv) ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
-🌟 **Key Features** • 🚀 **Quick Start** • 🏗️ **Architecture** • 📚 **API Docs** • 🎨 **Demo**
+A production-grade web-based Subway Surfers game where players control the character using **real-time hand gestures detected via webcam**. Deploy to Render with one click and play anywhere!
+
+[Features](#features) • [Quick Start](#quick-start) • [Architecture](#architecture) • [API Docs](#api-documentation) • [Contact](#contact)
 
 ---
 
@@ -12,20 +14,20 @@ A production-ready web-based Subway Surfers game where players control the chara
 
 Subway Surfers Hand Gesture Control transforms browser gaming with **real-time computer vision**. Unlike traditional games requiring controllers or keyboards, this game recognizes your hand gestures directly from your webcam:
 
-✨ **Real-Time Hand Gesture Recognition** - Detect 4 different hand gestures  
-⚡ **Sub-100ms Gesture Processing** - Near real-time responsiveness  
-🎮 **Browser-Based Gameplay** - No installation needed, just click and play  
-📱 **Cross-Platform Compatible** - Desktop, tablet, mobile with webcam  
-🧠 **OpenCV + MediaPipe Integration** - Production-grade hand detection  
-☁️ **Cloud Ready** - Deploy to Render with one command  
-🔒 **WebSocket Real-Time** - Bidirectional communication for live feedback  
+🎯 **Real-Time Hand Detection** - Gesture recognition in <100ms  
+⚡ **Sub-100ms Processing** - Near real-time responsiveness  
+🎮 **Browser-Based Gaming** - No installation, just click and play  
+📱 **Cross-Platform Support** - Desktop, tablet, mobile with webcam  
+🧠 **OpenCV + MediaPipe** - Production-grade hand detection  
+☁️ **Cloud Ready** - Deploy to Render instantly  
+🔌 **WebSocket Real-Time** - Bidirectional live communication  
 
 Perfect for:
 - **Casual Gaming** - Fun, interactive entertainment
-- **Fitness & Movement** - Active gaming experience
-- **Demo & Showcase** - Impress with gesture control technology
-- **Education** - Learn about computer vision in action
-- **Accessibility** - Game control without traditional input devices
+- **Active Gaming** - Movement-based gameplay experience
+- **Tech Showcase** - Impress with gesture control demo
+- **Education** - Learn computer vision in action
+- **Accessibility** - Control games without traditional input
 
 ---
 
@@ -37,23 +39,23 @@ Perfect for:
 |---------|-------------|--------|
 | **Hand Gesture Recognition** | Detects 4+ hand poses in real-time | ✅ Working |
 | **Browser Webcam Integration** | Direct camera access via getUserMedia API | ✅ Working |
-| **Canvas-Based Game** | Smooth 60+ FPS game rendering | ✅ Working |
-| **WebSocket Communication** | Live gesture-to-game command pipeline | ✅ Working |
-| **Cross-Browser Support** | Chrome, Firefox, Safari, Edge compatible | ✅ Working |
-| **Mobile Friendly** | Responsive design for all screen sizes | ✅ Working |
-| **Gesture Display Overlay** | Visual feedback of detected gestures | ✅ Working |
-| **Score Tracking** | Real-time score and difficulty progression | ✅ Working |
-| **Keyboard Fallback** | Arrow keys work if gesture fails | ✅ Working |
+| **Canvas Game Engine** | Smooth 60+ FPS gameplay rendering | ✅ Working |
+| **WebSocket Pipeline** | Live gesture-to-command communication | ✅ Working |
+| **Cross-Browser** | Chrome, Firefox, Safari, Edge | ✅ Working |
+| **Mobile Responsive** | Full support for all screen sizes | ✅ Working |
+| **Gesture Overlay** | Real-time visual feedback | ✅ Working |
+| **Score Tracking** | Progressive difficulty system | ✅ Working |
+| **Keyboard Fallback** | Arrow keys when gesture fails | ✅ Working |
 
 ### 🔥 Advanced Features
 
-- **Hybrid Gesture Detection** - OpenCV HSV + MediaPipe fallback
-- **Adaptive Lighting** - Handles various lighting conditions  
-- **Gesture Smoothing** - Prevents jitter and false positives
-- **Performance Metrics** - Display FPS, latency, connection status
-- **Background Processing** - Non-blocking gesture analysis
+- **Hybrid Detection** - OpenCV HSV + MediaPipe fallback
+- **Adaptive Lighting** - Works in various conditions
+- **Gesture Smoothing** - Prevents jitter & false positives
+- **Performance Metrics** - FPS, latency, connection status
+- **Background Processing** - Non-blocking analysis
 - **Multi-User Sessions** - Isolated game state per player
-- **Auto-Restart** - Resume game on connection drop
+- **Auto-Recovery** - Resume on connection drop
 
 ---
 
@@ -61,8 +63,8 @@ Perfect for:
 
 ### Prerequisites
 - **Python 3.10+**
-- **Webcam/Camera device** (any USB webcam works)
-- **Modern web browser** (Chrome, Firefox, Safari, Edge)
+- **Webcam/Camera** (any USB webcam)
+- **Modern Browser** (Chrome, Firefox, Safari, Edge)
 
 ### Installation (5 Minutes)
 
@@ -85,31 +87,29 @@ pip install -r requirements.txt
 
 # 4. Run server
 python app.py
+
+# 5. Open browser
+# Visit http://localhost:5000
+# Grant webcam access
+# Click START GAME
 ```
 
-🎉 **Done!** Open http://localhost:5000 in your browser
+🎉 **Done!** Open http://localhost:5000 and play!
 
 ---
 
-## 🎮 How to Play
+## 🎮 Game Controls
 
-### Quick Start
-1. **Open the game** - Click the Render URL or visit localhost:5000
-2. **Allow webcam** - Grant camera permission when prompted
-3. **Click START GAME** - Begin playing
-4. **Use hand gestures** - Control the player with your hands
-5. **Avoid obstacles** - Collect points and beat your high score
+### Hand Gestures
 
-### Game Controls
-
-| Hand Gesture | Game Action | Command |
-|---|---|---|
+| Gesture | Action | Command |
+|---------|--------|---------|
 | 👉 **Point Right** | Move RIGHT | Move to right lane |
 | 👈 **Point Left** | Move LEFT | Move to left lane |
-| ✋ **Open Palm** | JUMP | Jump over obstacles |
-| ✊ **Closed Fist** | SLIDE | Slide under obstacles |
+| ✋ **Open Palm** | JUMP UP | Jump over obstacles |
+| ✊ **Closed Fist** | SLIDE DOWN | Slide under obstacles |
 
-**Fallback Controls** (if gesture fails):
+### Keyboard Fallback
 - `→` Arrow Right - Move right
 - `←` Arrow Left - Move left
 - `↑` Arrow Up - Jump
@@ -117,14 +117,12 @@ python app.py
 
 ---
 
-## ☁️ Deploy to Render (5 Minutes)
+## ☁️ Deploy to Render
 
 ### Step 1: Push to GitHub
 
 ```bash
-cd c:\Users\rajas\motionplay\src
-
-# Initialize git
+cd motionplay/src
 git init
 git add .
 git commit -m "Subway Surfers hand gesture game by Rajasekhar-1111"
@@ -135,32 +133,26 @@ git push -u origin main
 
 ### Step 2: Deploy on Render
 
-1. Go to **[render.com](https://render.com/)** and sign up (free tier available)
+1. Go to **[render.com](https://render.com/)**
 2. Click **"New +" → "Web Service"**
-3. **Connect GitHub** and select your `motionplay` repository
-4. Configuration auto-fills from `render.yaml`:
-   - **Name:** `subway-surfers-gesture`
-   - **Environment:** Python
-   - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `gunicorn --worker-class eventlet -w 1 app:app`
+3. Connect GitHub and select `motionplay`
+4. Auto-configured from `render.yaml`:
+   - **Build:** `pip install -r requirements.txt`
+   - **Start:** `gunicorn --worker-class eventlet -w 1 app:app`
 5. Click **"Create Web Service"**
 6. Wait 2-5 minutes for deployment
 
-### Step 3: Share & Play
+### Step 3: Share URL
 
 Your live URL: `https://subway-surfers-gesture.onrender.com`
 
-Share with anyone! They just need to:
-- Click the link
-- Allow webcam access
-- Click "START GAME"
-- Play with hand gestures!
+Anyone can click it → Allow webcam → Play instantly!
 
 ---
 
 ## 🏗️ Architecture
 
-### System Flow Diagram
+### System Flow
 
 ```
 ┌─────────────────────────────────────────┐
@@ -168,20 +160,17 @@ Share with anyone! They just need to:
 ├─────────────────────────────────────────┤
 │  📹 Webcam Feed (Canvas capture)        │
 │  🎮 Game Rendering (HTML5 Canvas)       │
-│  🔊 User Input Processing               │
 │  🌐 WebSocket/Socket.IO Client          │
 └──────────────┬──────────────────────────┘
                │ WebSocket (Socket.IO)
-               │ Binary frame data (↓)
-               │ Gesture commands (↑)
+               │ Frame data ↔ Commands
 ┌──────────────▼──────────────────────────┐
 │     Flask Server (app.py)               │
 ├─────────────────────────────────────────┤
 │  🔌 WebSocket Handler                   │
-│  📷 Frame Reception & Decoding          │
+│  📷 Frame Processing                    │
 │  🧠 Gesture Detection Pipeline          │
 │  🎯 Command Mapping                     │
-│  📊 Performance Metrics                 │
 └──────────────┬──────────────────────────┘
                │
                ▼ OpenCV + MediaPipe
@@ -198,9 +187,9 @@ Share with anyone! They just need to:
 |-------|-----------|---------|
 | **Frontend** | HTML5 Canvas, JavaScript, Socket.IO | Game UI & interaction |
 | **Backend** | Flask, Flask-SocketIO | Web server & WebSocket |
-| **Vision** | OpenCV, MediaPipe | Hand detection & feature extraction |
-| **Processing** | NumPy, SciPy | Image processing & algorithms |
-| **Server** | Gunicorn, Eventlet | Production WSGI server |
+| **Vision** | OpenCV, MediaPipe | Hand detection & features |
+| **Processing** | NumPy, SciPy | Image processing |
+| **Server** | Gunicorn, Eventlet | Production WSGI |
 | **Deployment** | Render, Docker | Cloud hosting |
 
 ### Gesture Detection Pipeline
@@ -224,11 +213,11 @@ Raw Frame (640x480, 30 FPS)
    - Finger counting
          ↓
    [Classification]
-   - Match against gesture patterns
+   - Pattern matching
    - Smoothing filter
-   - Confidence score
+   - Confidence scoring
          ↓
-   Gesture Output → Game Command
+   Gesture → Game Command
 ```
 
 ---
@@ -238,107 +227,54 @@ Raw Frame (640x480, 30 FPS)
 ```
 motionplay/
 ├── src/
-│   ├── app.py                          # Flask app + WebSocket server
-│   ├── requirements.txt                # Python dependencies
-│   ├── Procfile                        # Render deployment config
-│   ├── render.yaml                     # Advanced Render config
-│   ├── runtime.txt                     # Python 3.10 version pin
-│   ├── .gitignore                      # Git ignore patterns
+│   ├── app.py                          # Flask + WebSocket server
+│   ├── requirements.txt                # Dependencies
+│   ├── Procfile                        # Render config
+│   ├── render.yaml                     # Advanced config
+│   ├── runtime.txt                     # Python 3.10
 │   ├── README.md                       # This file
-│   ├── DEPLOYMENT_GUIDE.md             # Quick start guide
+│   ├── DEPLOYMENT_GUIDE.md             # Quick guide
 │   │
 │   ├── templates/
-│   │   └── index.html                  # Game UI (Canvas + JS)
+│   │   └── index.html                  # Game UI
 │   │
 │   ├── modules/
-│   │   ├── __init__.py
-│   │   ├── video_capture_preprocessing.py      # Module 1: Video capture
-│   │   ├── hand_detection_segmentation.py      # Module 2: Hand detection
-│   │   ├── feature_extraction.py               # Module 3: Features
-│   │   ├── gesture_classification.py          # Module 4: Classification
-│   │   └── game_control_interface.py          # Module 5: Control
+│   │   ├── video_capture_preprocessing.py
+│   │   ├── hand_detection_segmentation.py
+│   │   ├── feature_extraction.py
+│   │   ├── gesture_classification.py
+│   │   └── game_control_interface.py
 │   │
-│   ├── logs/                           # Runtime logs
-│   ├── __pycache__/                    # Python cache
-│   └── .venv/                          # Virtual environment
+│   └── logs/, __pycache__, .venv/
 │
-├── .git/                               # Git repository
-├── .gitignore                          # Global git ignore
-└── README.md                           # Project overview
+└── .gitignore, .git/
 ```
 
 ---
 
 ## 📚 API Documentation
 
-Once running, interactive API docs available at:
-- **Swagger UI:** `http://localhost:5000/docs`
+Once running:
 - **Health Check:** `http://localhost:5000/health`
+- **API Docs:** `http://localhost:5000/docs`
 
-### Key Endpoints
-
-#### WebSocket Events
+### WebSocket Events
 
 **Client → Server:**
 ```javascript
-// Send video frame for gesture detection
 socket.emit('frame', {
-  image: base64_frame_data  // JPG encoded frame
+  image: base64_frame_data  // JPG encoded
 });
-
-// Request game command
-socket.emit('game_command');
 ```
 
 **Server → Client:**
 ```javascript
-// Processed frame with gesture overlay
 socket.on('processed_frame', (data) => {
-  {
-    gesture: "RIGHT_POINT",      // Detected gesture
-    frame: base64_annotated,     // Frame with overlay
-    timestamp: 1234567890.123
-  }
-});
-
-// Game command to execute
-socket.on('command', (data) => {
-  {
-    gesture: "RIGHT_POINT",
-    command: "RIGHT"             // Game action
-  }
+  gesture: "RIGHT_POINT",
+  frame: base64_annotated,
+  timestamp: 1234567890
 });
 ```
-
----
-
-## 🧪 Testing
-
-### Local Testing
-
-```bash
-# Test gesture recognition
-python quick_hand_check.py
-
-# Test optimized pipeline
-python main_optimized.py
-
-# Test MediaPipe integration
-python main_mediapipe.py
-
-# Diagnose hand detection
-python diagnose_hand_detection.py
-```
-
-### Browser Testing
-
-1. Open http://localhost:5000
-2. Click "START GAME"
-3. Test each gesture:
-   - Point right/left
-   - Open palm
-   - Close fist
-4. Verify game responds correctly
 
 ---
 
@@ -348,14 +284,13 @@ Tested on: **Windows 11, Intel i7, 16GB RAM, Fiber Internet**
 
 | Metric | Target | Actual | Status |
 |--------|--------|--------|--------|
-| **Gesture Detection Latency** | <100ms | 87ms | ✅ |
-| **Frame Processing Rate** | 30 FPS | 28-31 FPS | ✅ |
+| **Detection Latency** | <100ms | 87ms | ✅ |
+| **Frame Rate** | 30 FPS | 28-31 FPS | ✅ |
 | **WebSocket Round Trip** | <50ms | 42ms | ✅ |
-| **Hand Detection Accuracy** | >90% | 94% | ✅ |
+| **Detection Accuracy** | >90% | 94% | ✅ |
 | **False Positive Rate** | <5% | 2% | ✅ |
-| **Browser Memory Usage** | <200MB | 156MB | ✅ |
-| **Server CPU Usage** | <30% | 18% | ✅ |
-| **Concurrent Users (Free Tier)** | 1-5 | Tested: 3 | ✅ |
+| **Browser Memory** | <200MB | 156MB | ✅ |
+| **Concurrent Users** | 1-5 | Tested: 3 | ✅ |
 
 ---
 
@@ -363,83 +298,59 @@ Tested on: **Windows 11, Intel i7, 16GB RAM, Fiber Internet**
 
 ### Webcam Issues
 
-**Problem:** Webcam not detected
-```
-Solution:
-1. Check browser permissions (Chrome → Settings → Privacy)
-2. Try different browser (Chrome recommended)
-3. Restart browser and reload page
-4. Check if another app is using camera
-```
+**Webcam not detected:**
+- Check browser permissions (Chrome → Settings → Privacy)
+- Try different browser (Chrome recommended)
+- Restart browser and reload
+- Check no other app is using camera
 
-**Problem:** Black/blank camera feed
-```
-Solution:
-1. Direct camera access: chrome://settings/content/camera
-2. Allow https://your-render-url to access camera
-3. Use HTTPS (Render automatically provides this)
-```
+**Black camera feed:**
+- Direct camera access: `chrome://settings/content/camera`
+- Allow HTTPS access to camera
+- Use modern browser (HTTPS required)
 
 ### Gesture Recognition Issues
 
-**Problem:** Hand gestures not detected
-```
-Solutions:
-1. Ensure good lighting (avoid backlighting)
-2. Keep entire hand in frame
-3. Move slowly (avoid jerky movements)
-4. Use contrasting clothing vs background
-5. Try HSV range adjustment in hand_detection_segmentation.py:
-   HSV_LOWER = (0, 30, 80)
-   HSV_UPPER = (20, 150, 255)
-```
+**Gestures not detected:**
+- Ensure good lighting (avoid backlighting)
+- Keep entire hand in frame
+- Move slowly (avoid jerky movements)
+- Use contrasting clothing vs background
+- Adjust HSV range in `hand_detection_segmentation.py`
 
 ### Performance Issues
 
-**Problem:** Game stuttering/lagging
-```
-Solutions:
-1. Check internet (WebSocket is bandwidth-intensive)
-2. Reduce background apps/tabs
-3. Try different browser
-4. Reduce game resolution (edit index.html)
-5. Close other browser tabs
-```
+**Game stuttering:**
+- Check internet (WebSocket is bandwidth-intensive)
+- Reduce background apps/tabs
+- Try different browser
+- Close other tabs
+- Reduce game resolution in `index.html`
 
 ### Deployment Issues
 
-**Problem:** Build fails on Render
-```
-Check:
-1. Log in to Render dashboard
-2. View deployment logs
-3. Verify Procfile format
-4. Ensure requirements.txt has valid packages
-5. Check Python version matches runtime.txt
-```
+**Build fails on Render:**
+- Check `requirements.txt` format
+- Verify `Procfile` syntax
+- Ensure `runtime.txt` has valid version
+- View logs in Render dashboard
 
-**Problem:** Connection timeout after deployment
-```
-Solutions:
-1. Allow 2-3 minutes for cold start
-2. Check Render app logs
-3. Verify Flask app is listening on 0.0.0.0:5000
-4. Try hard refresh (Ctrl+Shift+R)
-```
+**Connection timeout:**
+- Allow 2-3 minutes for cold start
+- Check Render app logs
+- Try hard refresh (Ctrl+Shift+R)
+- Verify Flask listening on 0.0.0.0:5000
 
 ---
 
 ## 🔧 Configuration
 
-### Environment Variables
-
-For local development, create `.env` (optional):
+### Environment Variables (Local)
 
 ```env
 # Flask
 FLASK_ENV=development
 FLASK_DEBUG=True
-SECRET_KEY=your-secret-key-here
 
 # Server
 HOST=0.0.0.0
@@ -449,88 +360,55 @@ PORT=5000
 FRAME_WIDTH=640
 FRAME_HEIGHT=480
 TARGET_FPS=30
-
-# Gesture Detection
-HSV_LOWER=(0, 30, 80)
-HSV_UPPER=(20, 150, 255)
-MIN_CONTOUR_AREA=20
 ```
 
 ### Production (Render)
+
 No configuration needed! `render.yaml` handles everything.
 
 ---
 
-## 🚀 Performance Optimization
+## 🚀 Optimization Tips
 
-### For Better Gameplay:
-
-**1. Adjust Camera Resolution**
+**Adjust Resolution:**
 ```python
-# In app.py, modify:
-FRAME_WIDTH = 320  # Lower = faster but less detail
+FRAME_WIDTH = 320  # Lower = faster
 FRAME_HEIGHT = 240
 ```
 
-**2. Reduce Processing Frequency**
+**Process Every Nth Frame:**
 ```python
-# Process every Nth frame
-frame_count = 0
-if frame_count % 2 == 0:  # Process every 2nd frame
+if frame_count % 2 == 0:  # Every 2nd frame
     gesture = classify(frame)
-frame_count += 1
 ```
 
-**3. Optimize for Slow Connections**
-```javascript
-// In templates/index.html
-const FRAME_INTERVAL = 100;  // 10 FPS instead of 30
-```
-
-**4. Enable Hardware Acceleration**
-- Chrome: Settings → Advanced → System → Use hardware acceleration
-- Firefox: about:preferences → Performance → Use recommended performance settings
-
----
-
-## 🎓 Learning Resources
-
-### Computer Vision Concepts
-- **HSV Color Space** - Why we use it for skin detection
-- **Contour Detection** - How we find hand boundaries
-- **Convex Hull** - Approximate hand shape
-- **Defect Detection** - Count fingers via hull defects
-
-### Related Projects
-- [MediaPipe Hand Tracking](https://google.github.io/mediapipe/solutions/hands)
-- [OpenCV Hand Detection](https://docs.opencv.org/master/d3/da1/tutorial_features_intersection.html)
-- [Real-time Hand Gesture Recognition](https://github.com/topics/hand-gesture-recognition)
+**Enable Hardware Acceleration:**
+- Chrome: Settings → Advanced → System
+- Firefox: about:preferences → Performance
 
 ---
 
 ## 🔮 Roadmap
 
-Features in development:
-- ⬜ **Sound Effects** - Pop sounds, background music
-- ⬜ **Leaderboard** - High scores with persistent storage
-- ⬜ **Game Themes** - Multiple visual styles
-- ⬜ **Multiplayer Mode** - Compete with friends
-- ⬜ **Custom Gestures** - Train your own gestures
-- ⬜ **Mobile App** - Native iOS/Android version
-- ⬜ **AI Difficulty** - Dynamic difficulty scaling
-- ⬜ **Analytics** - Track gesture accuracy
+Planned features:
+- ⬜ Sound effects & music
+- ⬜ Leaderboard system
+- ⬜ Multiple game themes
+- ⬜ Multiplayer mode
+- ⬜ Custom gesture training
+- ⬜ Mobile app (iOS/Android)
+- ⬜ Dynamic AI difficulty
+- ⬜ Gesture analytics
 
 ---
 
 ## 🤝 Contributing
 
-Contributions welcome! 
-
 ```bash
-# Fork → Clone → Create Feature Branch
+# Fork → Clone → Feature Branch
 git checkout -b feature/amazing-feature
 
-# Make changes & test locally
+# Change locally
 pip install -r requirements.txt
 python app.py
 
@@ -538,78 +416,43 @@ python app.py
 git add .
 git commit -m "Add amazing feature"
 git push origin feature/amazing-feature
-
-# Create Pull Request on GitHub
 ```
 
 **Guidelines:**
-- Follow PEP 8 style guide
-- Add docstrings to all functions
-- Test changes locally before submitting
-- Update documentation as needed
+- Follow PEP 8
+- Add docstrings
+- Write tests
+- Update docs
 
 ---
 
 ## 📄 License
 
-MIT License - See [LICENSE](LICENSE) for details
+MIT License - See [LICENSE](LICENSE)
 
 ---
 
-## 📞 Support & Contact
+## 📞 Contact
 
 **Developer:** Rajasekhar-1111  
 **GitHub:** [@Rajasekhar-1111](https://github.com/Rajasekhar-1111)  
 **Repository:** [motionplay](https://github.com/Rajasekhar-1111/motionplay)  
 
-### Getting Help
+### Support
 
-- 🐛 **Bug Reports:** [GitHub Issues](https://github.com/Rajasekhar-1111/motionplay/issues)
-- 💬 **Questions:** Open GitHub Discussion
-- 📖 **Docs:** Check `/docs` endpoint when server running
-- 🌐 **Live Demo:** Visit deployed Render URL
-
----
-
-## 🎬 Quick Demo
-
-### Local Demo
-```bash
-# Terminal 1: Start server
-cd motionplay/src
-python app.py
-
-# Terminal 2: Open browser
-# Visit http://localhost:5000
-# Allow webcam access
-# Click START GAME
-# Use hand gestures to play!
-```
-
-### Online Demo
-Simply visit your Render URL and start playing!
+- 🐛 [Bug Reports](https://github.com/Rajasekhar-1111/motionplay/issues)
+- 💬 GitHub Discussions
+- 📖 API Docs at `/docs`
+- 🌐 Live Demo URL
 
 ---
 
-## 🌟 Acknowledgments
+## ⭐ Star this repo if helpful!
 
-Built with ❤️ using:
-- **Flask** - Web framework
-- **OpenCV** - Computer vision
-- **MediaPipe** - Hand detection
-- **Socket.IO** - Real-time communication
-- **HTML5 Canvas** - Game rendering
-- **Render** - Cloud hosting
-
-Special thanks to the open-source community! 🙏
+[⭐ Star on GitHub](https://github.com/Rajasekhar-1111/motionplay)
 
 ---
 
-## ⭐ If you found this helpful, star the repo!
+**Made with ❤️ by Rajasekhar-1111**
 
-**[⭐ Star on GitHub](https://github.com/Rajasekhar-1111/motionplay)**
-
----
-
-**Made with ❤️ by Rajasekhar-1111**  
 *Transforming hand gestures into game commands, one frame at a time.*
