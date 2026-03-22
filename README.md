@@ -100,30 +100,98 @@ python app.py
 
 ---
 
-## 🎮 Game Controls
+## 🎮 How to Play - Hand Gesture Controls
 
-### Hand Gestures (Main)
+### The 4 Gestures You Need to Know
 
-| Gesture | Action | Command |
-|---------|--------|---------|
-| 👉 **Point Right** | Move RIGHT | Move to right lane |
-| 👈 **Point Left** | Move LEFT | Move to left lane |
-| ✋ **Open Palm** | JUMP UP | Jump over obstacles |
-| ✊ **Closed Fist** | SLIDE DOWN | Slide under obstacles |
+#### 1️⃣ 👉 **RIGHT POINT** → Move RIGHT
+```
+Show your index finger pointing RIGHT
+```
+- ✋ Open your hand normally
+- 👉 Point your index finger to the RIGHT
+- 🎮 Game action: Move to **RIGHT lane**
+- 🎯 Use to: Dodge obstacles on the left
 
-### Keyboard Controls (Desktop Fallback)
-- `→` Arrow Right - Move right
-- `←` Arrow Left - Move left
-- `↑` Arrow Up - Jump
-- `↓` Arrow Down - Slide
+#### 2️⃣ 👈 **LEFT POINT** → Move LEFT  
+```
+Show your index finger pointing LEFT
+```
+- ✋ Open your hand normally
+- 👈 Point your index finger to the LEFT
+- 🎮 Game action: Move to **LEFT lane**
+- 🎯 Use to: Dodge obstacles on the right
 
-### Touch/Swipe Controls (Mobile)
-- **Swipe Left** → Move RIGHT
-- **Swipe Right** → Move LEFT
-- **Swipe Down** → JUMP
-- **Swipe Up** → SLIDE
+#### 3️⃣ ✋ **OPEN PALM** → JUMP UP
+```
+Show all 5 fingers spread open (like a stop sign)
+```
+- ✋ Open your hand wide
+- Show all 5 fingers clearly
+- 🎮 Game action: **JUMP over obstacles**
+- 🎯 Use to: Avoid obstacles coming at you
 
-**Note:** Use hand gestures (recommended) or swipe controls on mobile. For best experience, keep your hand visible in the webcam!
+#### 4️⃣ ✊ **CLOSED FIST** → SLIDE DOWN
+```
+Make a fist (curl all fingers)
+```
+- ✊ Make a closed fist
+- All fingers tucked in
+- 🎮 Game action: **SLIDE under obstacles**
+- 🎯 Use to: Duck under tall obstacles
+
+---
+
+## 📱 Mobile & Keyboard Fallback
+
+### Swipe Controls (Mobile/Tablet)
+If hand gestures don't work, use swipes:
+- **Swipe ← LEFT** → Move RIGHT  
+- **Swipe → RIGHT** → Move LEFT
+- **Swipe ↑ UP** → JUMP
+- **Swipe ↓ DOWN** → SLIDE
+
+### Keyboard Controls (Desktop)
+Use arrow keys as backup:
+- `→` **Right Arrow** - Move RIGHT
+- `←` **Left Arrow** - Move LEFT
+- `↑` **Up Arrow** - JUMP
+- `↓` **Down Arrow** - SLIDE
+
+---
+
+## 🎮 Game Controls Reference
+
+| Gesture | Hand Position | Game Action | Purpose |
+|---------|---|---|---|
+| **👉 RIGHT POINT** | Index finger right | Move RIGHT lane | Dodge left obstacles |
+| **👈 LEFT POINT** | Index finger left | Move LEFT lane | Dodge right obstacles |
+| **✋ OPEN PALM** | All 5 fingers spread | JUMP UP | Avoid obstacles |
+| **✊ CLOSED FIST** | All fingers curled | SLIDE DOWN | Duck under obstacles |
+
+---
+
+## 💡 Pro Tips
+
+✅ **Best Practices:**
+- Keep your hand **visible in the webcam**
+- Show gestures **clearly and slowly** (not too fast)
+- Use bright/well-lit areas for best detection
+- Mobile: Tilt device horizontally for wider view
+- Desktop: Position webcam at eye level
+
+❌ **What Doesn't Work:**
+- ❌ Hand hidden behind body
+- ❌ Gestures too fast or blurry
+- ❌ Dim/dark lighting
+- ❌ Multiple hands detected
+- ❌ Gesture partially visible
+
+🎯 **Scoring:**
+- **+5 points** - Obstacle passes below you
+- **+10 points** - Slide under obstacle successfully  
+- **Speed increases** - Game gets harder over time
+- **Game Over** - Collision with obstacle (no sliding)
 
 ---
 
