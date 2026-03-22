@@ -37,11 +37,11 @@
         .camera-section {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
             background: rgba(0, 0, 0, 0.3);
-            padding: 20px;
+            padding: 12px;
             border-radius: 15px;
-            min-width: 420px;
+            width: 260px;
             flex-shrink: 0;
         }
 
@@ -53,8 +53,8 @@
 
         video {
             width: 100%;
-            max-width: 400px;
-            border-radius: 10px;
+            max-width: 240px;
+            border-radius: 8px;
             background: black;
             display: block;
         }
@@ -65,36 +65,77 @@
 
         #processedFrame {
             width: 100%;
-            max-width: 400px;
-            border-radius: 10px;
+            max-width: 240px;
+            border-radius: 8px;
             background: black;
             display: block;
         }
 
         .gesture-info {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.5);
             color: white;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            border-left: 4px solid #4CAF50;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #FFD700;
         }
 
-        .gesture-info .label {
+        .gesture-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .gesture-confidence {
             font-size: 12px;
-            opacity: 0.8;
-            margin-bottom: 5px;
+            color: #4CAF50;
+            margin-bottom: 6px;
         }
 
-        .gesture-info .value {
-            font-size: 24px;
+        .gesture-action {
+            background: #FFFF00;
+            color: #000;
+            padding: 6px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 10px;
+            margin-bottom: 6px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .gesture-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-top: 6px;
+            font-size: 10px;
+        }
+
+        .detail-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px;
+            border-radius: 4px;
+            border-left: 2px solid #4CAF50;
+        }
+
+        .detail-label {
+            font-size: 8px;
+            opacity: 0.7;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .detail-value {
+            font-size: 12px;
             font-weight: bold;
             color: #4CAF50;
         }
 
         .game-section {
             flex: 1;
-            min-width: 520px;
+            min-width: 400px;
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -104,8 +145,7 @@
             border-radius: 10px;
             background: linear-gradient(to bottom, #87CEEB, #E0F6FF);
             width: 100%;
-            max-width: 500px;
-            height: 400px;
+            min-height: 450px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 3px solid rgba(255, 255, 255, 0.3);
         }
@@ -336,7 +376,7 @@
     <div class="container">
         <!-- Camera Section -->
         <div class="camera-section">
-            <h2 style="color: white; text-align: center;">Webcam Feed</h2>
+            <h2 style="color: white; text-align: center; font-size: 14px; margin: 0 0 8px 0;">📹 Gesture</h2>
             <div class="camera-info">
                 <video id="webcam" autoplay playsinline muted></video>
                 <canvas id="canvas"></canvas>
@@ -344,10 +384,20 @@
             <div style="color: white; text-align: center; font-size: 12px; margin-top: 5px;">
                 <p>📹 Gesture Detection</p>
             </div>
-            <img id="processedFrame" src="" alt="Processed Frame" style="display: none;">
             <div class="gesture-info">
-                <div class="label">DETECTED GESTURE</div>
-                <div class="value" id="gestureDisplay">NEUTRAL</div>
+                <div class="gesture-name" id="gestureName">NEUTRAL</div>
+                <div class="gesture-confidence">Conf: <span id="gestureConfidence">0%</span></div>
+                <div class="gesture-action" id="gestureAction">??? UNKNOWN</div>
+                <div class="gesture-details">
+                    <div class="detail-box">
+                        <div class="detail-label">Frame</div>
+                        <div class="detail-value" id="frameCount">0</div>
+                    </div>
+                    <div class="detail-box">
+                        <div class="detail-label">Fingers</div>
+                        <div class="detail-value" id="fingerCount">0</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -502,12 +552,38 @@
             debug('Server response: ' + JSON.stringify(data));
         });
 
+        // Gesture to key/action mapping
+        const gestureActionMap = {
+            'LEFT_POINT': { key: 'LEFT', action: 'LEFT' },
+            'RIGHT_POINT': { key: 'RIGHT', action: 'RIGHT' },
+            'OPEN_PALM': { key: 'UP', action: 'JUMP' },
+            'CLOSED_FIST': { key: 'DOWN', action: 'SLIDE' },
+            'NEUTRAL': { key: '???', action: 'NONE' }
+        };
+
+        // Frame counter for display
+        let frameCounter = 0;
+
         socket.on('processed_frame', (data) => {
+            frameCounter++;
+            
             if (data.gesture) {
                 currentGesture = data.gesture;
-                document.getElementById('gestureDisplay').textContent = data.gesture;
-                debug('Gesture detected: ' + data.gesture);
+                const gestureInfo = gestureActionMap[data.gesture] || { key: '???', action: 'UNKNOWN' };
+                
+                // Update gesture display like MediaPipe app
+                document.getElementById('gestureName').textContent = data.gesture;
+                document.getElementById('gestureConfidence').textContent = data.confidence ? 
+                    (data.confidence * 100).toFixed(0) + '%' : '0%';
+                document.getElementById('gestureAction').textContent = 
+                    `${gestureInfo.key} KEY (${gestureInfo.action})`;
+                document.getElementById('frameCount').textContent = frameCounter;
+                document.getElementById('fingerCount').textContent = data.fingers || '0';
+                
+                debug('Gesture detected: ' + data.gesture + ' (Conf: ' + 
+                    ((data.confidence || 0) * 100).toFixed(0) + '%)');
             }
+            
             if (data.frame) {
                 document.getElementById('processedFrame').src = data.frame;
                 document.getElementById('processedFrame').style.display = 'block';
