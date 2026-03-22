@@ -46,6 +46,8 @@ Perfect for:
 | **Gesture Overlay** | Real-time visual feedback | ✅ Working |
 | **Score Tracking** | Progressive difficulty system | ✅ Working |
 | **Keyboard Fallback** | Arrow keys when gesture fails | ✅ Working |
+| **Touch/Swipe Controls** | Mobile gesture controls | ✅ Working |
+| **Landscape Mode** | Optimized for wider viewing | ✅ Working |
 
 ### 🔥 Advanced Features
 
@@ -100,7 +102,7 @@ python app.py
 
 ## 🎮 Game Controls
 
-### Hand Gestures
+### Hand Gestures (Main)
 
 | Gesture | Action | Command |
 |---------|--------|---------|
@@ -109,11 +111,19 @@ python app.py
 | ✋ **Open Palm** | JUMP UP | Jump over obstacles |
 | ✊ **Closed Fist** | SLIDE DOWN | Slide under obstacles |
 
-### Keyboard Fallback
+### Keyboard Controls (Desktop Fallback)
 - `→` Arrow Right - Move right
 - `←` Arrow Left - Move left
 - `↑` Arrow Up - Jump
 - `↓` Arrow Down - Slide
+
+### Touch/Swipe Controls (Mobile)
+- **Swipe Left** → Move RIGHT
+- **Swipe Right** → Move LEFT
+- **Swipe Down** → JUMP
+- **Swipe Up** → SLIDE
+
+**Note:** Use hand gestures (recommended) or swipe controls on mobile. For best experience, keep your hand visible in the webcam!
 
 ---
 
@@ -368,7 +378,85 @@ No configuration needed! `render.yaml` handles everything.
 
 ---
 
-## 🚀 Optimization Tips
+## � Mobile Support
+
+### ✅ Works on Mobile!
+
+Yes, the game is **fully mobile-optimized** and works on:
+- **iOS** (iPhone, iPad) - Safari browser
+- **Android** - Chrome, Firefox, Samsung Internet
+
+### How to Play on Mobile
+
+1. **Open the Render URL** on your mobile browser
+2. **Allow camera access** when prompted
+3. **Hold phone vertically or horizontally** (choose what's comfortable)
+4. **Use swipe gestures** OR hand gestures to control the player
+
+### Mobile Controls
+
+**Primary (Hand Gestures):**
+- Point right/left - Move lanes
+- Open palm - Jump
+- Closed fist - Slide
+
+**Fallback (Swipe Touch):**
+- Swipe left → Move right
+- Swipe right → Move left
+- Swipe up → Slide down
+- Swipe down → Jump up
+
+### Mobile Tips
+
+**For Best Performance:**
+- ✅ Use landscape orientation (wider view of hand)
+- ✅ Ensure good lighting (avoid backlighting)
+- ✅ Keep entire hand in camera frame
+- ✅ Use Chrome for better performance
+- ✅ Close other browser tabs
+- ✅ Check WiFi/4G connection stability
+
+**Potential Limitations:**
+- ⚠️ Phone may get warm during extended play (normal for video processing)
+- ⚠️ Battery drains faster (webcam + game processing)
+- ⚠️ Smaller screen = less game visibility
+- ⚠️ Hand detection works best in good lighting
+- ⚠️ WebSocket connection requires stable internet
+
+### Troubleshooting Mobile-Specific Issues
+
+**Camera permission denied:**
+```
+iOS: Settings → Photos & Camera → Allow access
+Android: Settings → Apps → Permissions → Camera → Allow
+```
+
+**Blank/black camera:**
+- Try rotating phone (try landscape)
+- Check if camera is blocked by case/sticker
+- Restart browser
+- Try different browser (Chrome recommended)
+
+**Game too small on screen:**
+- Rotate phone to landscape
+- Zoom out browser (Ctrl/Cmd + -)
+- Some tablets work better for visibility
+
+**Swipe not working:**
+- Make sure finger is swiping across screen (not up/down scroll)
+- Try slower, deliberate swipes
+- Use hand gestures instead (more reliable)
+
+**Slow/laggy on mobile:**
+- Reduce background apps
+- Close other browser tabs
+- Use 4G/WiFi not 3G
+- Try lower device brightness (saves battery & heat)
+- Restart browser
+
+---
+
+## �🚀 Optimization Tips
 
 **Adjust Resolution:**
 ```python
