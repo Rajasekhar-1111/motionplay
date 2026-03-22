@@ -73,14 +73,25 @@ def process_frame(frame_data):
                 if features and 'finger_count' in features:
                     gesture = classifier.classify_gesture(features)
                     
+                    # Map internal gesture names to game commands
+                    gesture_mapping = {
+                        'INDEX_RIGHT': 'RIGHT_POINT',
+                        'INDEX_LEFT': 'LEFT_POINT',
+                        'OPEN_PALM': 'OPEN_PALM',
+                        'CLOSED_FIST': 'CLOSED_FIST'
+                    }
+                    
+                    # Get mapped gesture name, or use original if not in mapping
+                    game_gesture = gesture_mapping.get(str(gesture), str(gesture))
+                    
                     # Draw annotations
                     cv2.drawContours(frame, [contour], 0, (0, 255, 0), 2)
-                    cv2.putText(frame, f"Gesture: {gesture}", (10, 30),
+                    cv2.putText(frame, f"Gesture: {game_gesture}", (10, 30),
                               cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
                     cv2.putText(frame, f"Fingers: {features['finger_count']}", (10, 70),
                               cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
                     
-                    return frame, gesture
+                    return frame, game_gesture
         
         return frame, "NEUTRAL"
     
