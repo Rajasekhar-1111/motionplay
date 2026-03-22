@@ -388,8 +388,13 @@
     </div>
 
     <script>
-        // WebSocket Connection
-        const socket = io();
+        // WebSocket Connection with better error handling
+        const socket = io({
+            reconnection: true,
+            reconnectionDelay: 1000,
+            reconnectionDelayMax: 5000,
+            reconnectionAttempts: 5
+        });
 
         // Game Variables
         let gameRunning = false;
@@ -398,6 +403,11 @@
         let gameSpeed = 3;
         let lastGestureTime = 0;
         let gestureCooldown = 300; // ms
+        let debugMode = true;  // Enable console logging for deployment debugging
+
+        function debug(msg) {
+            if (debugMode) console.log('[SubwaySurfers] ' + msg);
+        }
 
         // Player object
         const player = {
@@ -447,36 +457,49 @@
                 video.srcObject = stream;
                 video.onloadedmetadata = () => {
                     video.play();
+                    debug('✓ Webcam initialized successfully');
                 };
             })
             .catch(err => {
                 console.error('Error accessing webcam:', err);
+                debug('✗ Webcam error: ' + err.name);
                 let errorMsg = 'Please enable webcam access to play!';
                 if (err.name === 'NotAllowedError') {
-                    errorMsg = 'Webcam permission denied. Please allow camera access.';
+                    errorMsg = 'Webcam permission denied. Please allow camera access in browser settings.';
                 } else if (err.name === 'NotFoundError') {
                     errorMsg = 'No camera found. Please connect a webcam.';
                 } else if (err.name === 'NotReadableError') {
                     errorMsg = 'Camera is in use by another app. Please close it.';
                 }
+                debug('✗ ' + errorMsg);
                 alert(errorMsg);
             });
 
-        // Socket events
+        // Socket events with error handling
         socket.on('connect', () => {
-            console.log('Connected to server');
+            debug('✓ Connected to server');
             updateConnectionStatus(true);
         });
 
         socket.on('disconnect', () => {
-            console.log('Disconnected from server');
+            debug('✗ Disconnected from server');
             updateConnectionStatus(false);
+        });
+
+        socket.on('error', (error) => {
+            debug('✗ Socket error: ' + error);
+            console.error('SocketIO Error:', error);
+        });
+
+        socket.on('connection_response', (data) => {
+            debug('Server response: ' + JSON.stringify(data));
         });
 
         socket.on('processed_frame', (data) => {
             if (data.gesture) {
                 currentGesture = data.gesture;
                 document.getElementById('gestureDisplay').textContent = data.gesture;
+                debug('Gesture detected: ' + data.gesture);
             }
             if (data.frame) {
                 document.getElementById('processedFrame').src = data.frame;
@@ -489,9 +512,11 @@
             if (connected) {
                 status.className = 'status connected';
                 status.innerHTML = '🟢 Status: Connected';
+                debug('Connection status updated: Connected');
             } else {
                 status.className = 'status disconnected';
                 status.innerHTML = '⚪ Status: Disconnected';
+                debug('Connection status updated: Disconnected');
             }
         }
 
@@ -512,6 +537,7 @@
 
         // Game functions
         function startGame() {
+            debug('Starting game...');
             gameRunning = true;
             score = 0;
             obstacles = [];
@@ -519,11 +545,13 @@
             player.jumping = false;
             player.sliding = false;
             player.velocityY = 0;
+            document.getElementById('scoreDisplay').textContent = '0';
             processWebcam();
             gameLoop();
         }
 
         function stopGame() {
+            debug('Stopping game...');
             gameRunning = false;
         }
 

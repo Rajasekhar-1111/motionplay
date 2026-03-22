@@ -21,7 +21,18 @@ from modules.gesture_classification import GestureClassifier
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-change-in-production'
-socketio = SocketIO(app, cors_allowed_origins="*")
+
+# Configure SocketIO for production deployment
+socketio = SocketIO(
+    app, 
+    cors_allowed_origins="*",
+    async_mode='eventlet',
+    ping_timeout=60,
+    ping_interval=25,
+    engineio_logger=False,
+    socketio_logger=False,
+    transport=['websocket', 'polling']  # Support both websocket and polling fallback
+)
 
 # Global state
 gesture_state = {
@@ -184,4 +195,11 @@ def handle_game_command():
 
 if __name__ == '__main__':
     # For local development
-    socketio.run(app, debug=True, host='0.0.0.0', port=5000)
+    # Note: Gunicorn will run this automatically on production (render.yaml)
+    socketio.run(
+        app, 
+        debug=True, 
+        host='0.0.0.0', 
+        port=5000,
+        allow_unsafe_werkzeug=True
+    )
